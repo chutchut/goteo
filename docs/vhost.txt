@@ -1,0 +1,27 @@
+<VirtualHost *:80>
+    ServerName goteo.local
+    ServerAlias www.goteo.local
+    ServerAlias en.goteo.local
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /opt/lampp/htdocs/goteo/dist
+
+    # Custom settings for apache
+    SetEnv GOTEO_CONFIG_FILE /opt/lampp/htdocs/goteo/config/settings.yml
+
+    FallbackResource /index.php
+
+    <Directory /opt/lampp/htdocs/goteo/dist>
+        Options Indexes FollowSymlinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    RewriteEngine On
+    RewriteCond %{DOCUMENT_ROOT}%{SCRIPT_FILENAME} !-f
+    RewriteCond %{DOCUMENT_ROOT}%{SCRIPT_FILENAME} !-d
+    RewriteRule . /index.php [L]
+
+    ErrorLog logs/goteo.local-error_log
+    CustomLog logs/goteo.local-access_log combined
+</VirtualHost>
