@@ -1,0 +1,5 @@
+name: tes-starter
+version: 1.0
+
+assets:
+    Resources/assets: tes-starter/assets
