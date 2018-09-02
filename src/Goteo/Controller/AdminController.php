@@ -34,7 +34,7 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 
 class AdminController extends \Goteo\Core\Controller {
-
+    
     private static $subcontrollers = [];
     private static $context_vars = [];
     private static $groups = [
@@ -53,12 +53,12 @@ class AdminController extends \Goteo\Core\Controller {
         'services' => ['sponsors', 'nodes', 'transnodes', 'calls', 'workshop', 'donor', 'reports'],
         'others' => ['reviews', 'translates', 'commons']
     ];
-
+    
     public function __construct() {
         // changing to a responsive theme here
         View::setTheme('responsive');
     }
-
+    
     /**
      * Controller for route /admin
      */
@@ -77,24 +77,25 @@ class AdminController extends \Goteo\Core\Controller {
     }
     /**
      * Controller for any route under /admin/{route}
-
+     
      */
     public function routingAction($id, $uri = '', Request $request) {
-
+        
         $user = self::getCurrentUser($request);
         $uri = "/$uri";
-
+        
         if($module = self::getSubController($id)) {
-
+            
             // Log this entry
             Log::append(['scope' => 'admin', 'target_type' => 'admin_module', 'target_id' => $id]);
-
+            
             static::createAdminSidebar($user, $id, $request->getPathInfo());
+            
             if(in_array('Goteo\Controller\Admin\AdminControllerInterface', class_implements($module))) {
-
+                
                 // Add the admin routes
                 $module_routes = $routes = $module::getRoutes();
-
+                
                 if( $routes instanceOf Route) {
                     $module_routes = new RouteCollection();
                     $module_routes->add("admin-submodule-$id", $routes);
@@ -105,12 +106,12 @@ class AdminController extends \Goteo\Core\Controller {
                         $module_routes->add("admin-submodule-$id-$key", $route);
                     }
                 }
-
+                
                 // Manual matching routes
                 if($module_routes instanceOf RouteCollection) {
                     $context = new RequestContext('/');
                     $matcher = new UrlMatcher($module_routes, $context);
-
+                    
                     try {
                         $parameters = $matcher->match($uri);
                         // print_r($parameters);die;
@@ -126,41 +127,41 @@ class AdminController extends \Goteo\Core\Controller {
                         ]);
                         // Forward the subcontroller
                         return $this->forward($parameters['_controller'], $parameters);
-
+                        
                     } catch(ResourceNotFoundException $e) {
                         throw new NotFoundHttpException("Route [$uri] is not defined in module [$module]");
                     }
-
+                    
                 } else {
                     throw new ControllerException("Error: [$module::getRoutes()] must return a valid instance of Symfony\Component\Routing\Route (or an array of several Routes) or Symfony\Component\Routing\RouteCollection");
                 }
             } else {
                 // OLD admin modules
                 list($empty,$action, $sid, $subaction) = explode('/', $uri);
-
+                
                 return $this->optionAction($id, $action ? $action : 'list', $sid, $subaction, $request);
             }
         }
         throw new NotFoundHttpException("Admin module [$id] not found");
     }
-
+    
     /**
      * Creates the sidebar in admin
      * @param  User   $user [description]
      * @param  string $zone [description]
      */
     public static function createAdminSidebar (User $user, $module_id = null, $uri = '') {
-
+        
         $prefix = '/admin';
         // $modules =
         // $zone = preg_replace('|^/admin|', '', $uri);
         // die("[$uri]");
-
+        
         foreach (static::$subcontrollers as $id => $class) {
-
+            
             if(in_array('Goteo\Controller\Admin\AdminControllerInterface', class_implements($class))) {
                 if(!$class::isAllowed($user)) continue;
-
+                
                 $label = $class::getLabel('html');
                 $cls = strpos($label, '<i') === false ? 'nopadding' : '';
                 if($sidebar = $class::getSidebar()) {
@@ -173,9 +174,9 @@ class AdminController extends \Goteo\Core\Controller {
                             $route = ['text' => $route, 'link' => $link];
                         }
                         $c = $route['class'] ? $route['class'] : (strpos($route['text'], '<i') === false ? 'nopadding' : '');
-
+                        
                         if(!$route['id']) $route['id'] = $route['link'];
-
+                        
                         $paths[] = ['text' => $route['text'], 'link' => $prefix . $route['link'], 'id' => $route['id'], 'class' => $c];
                     }
                     // echo "[$class|$id]\n";print_r($paths);
@@ -216,9 +217,9 @@ class AdminController extends \Goteo\Core\Controller {
                 Session::addToSidebarMenu($label, $paths[0]['link'], $paths[0]['id'], $i, "$c");
             }
             $index += $position ? $position : 1;
-
+            
             if($zone && $pos === -1) continue;
-
+            
             foreach($paths as $p) {
                 if($p['link'] === $uri) {
                     $zone = $p['id']; // Jackpot! exact route
@@ -235,46 +236,49 @@ class AdminController extends \Goteo\Core\Controller {
                 }
             }
         }
-
+        
         // print_r($modules);
         // echo "$module_id [zone $zone]\n";
-
+        
         if($zone) {
             View::getEngine()->useData([
                 'zone' => $zone,
                 'sidebarBottom' => [ $prefix => '<i class="icon icon-2x icon-back"></i> ' . Text::get('admin-home') ]
             ]);
         }
-
+        
     }
-
+    
     public static function getGroupLabel($key, &$position = 0) {
         if(isset(self::$groups[$key])) {
             $g = self::$groups[$key];
             $position = $g['position'];
             return trim($g['icon']. ' ' . Text::get($g['text']));
         }
-        if(isset(self::$subcontrollers[$key]) && in_array('Goteo\Controller\Admin\AdminControllerInterface', class_implements(self::$subcontrollers[$key]))) {
-            $position = 0;
-            return self::$subcontrollers[$key]::getLabel('html');
-        }
-        return Text::get('admin-' . $key);
+        if(isset(self::$subcontrollers[$key]) &&
+            in_array('Goteo\Controller\Admin\AdminControllerInterface', class_implements(self::$subcontrollers[$key])) &&
+            method_exists(self::$subcontrollers[$key], 'getLabel') &&
+            is_object(self::$subcontrollers[$key])) {
+                $position = 0;
+                return self::$subcontrollers[$key]->getLabel('html');
+            }
+            return Text::get('admin-' . $key);
     }
-
+    
     private static function getCurrentUser(Request $request) {
-
+        
         //refresh permission status
         User::flush();
         $user = Session::getUser();
-
+        
         if (!$user) {
             throw new ControllerAccessDeniedException(Text::get('user-login-required-access'));
         }
-
+        
         return $user;
     }
-
-
+    
+    
     /**
      * Registers a subcontroller in the admin
      * @param [type] $classname [description]
@@ -282,23 +286,23 @@ class AdminController extends \Goteo\Core\Controller {
     public static function addSubController($classname) {
         self::$subcontrollers[$classname::getId()] = $classname;
     }
-
-
+    
+    
     /**
      * Checks if a subcontroller is loaded
      * @param [type] $classname [description]
      */
     public static function existsSubController($classname) {
         foreach (static::$subcontrollers as $id => $class) {
-          if($class === $classname) return true;
+            if($class === $classname) return true;
         }
         return false;
     }
-
+    
     public static function getSubController($id) {
         return isset(self::$subcontrollers[$id]) ? self::$subcontrollers[$id] : null;
     }
-
+    
     /**
      * Removes a subcontroller
      * @param  [type] $classname [description]
@@ -315,7 +319,7 @@ class AdminController extends \Goteo\Core\Controller {
             }
         }
     }
-
+    
     /**
      * Returns if a user is allowed to view the admin
      * @param  User $user [description]
@@ -325,9 +329,9 @@ class AdminController extends \Goteo\Core\Controller {
         if (!$user) {
             return false;
         }
-
+        
         $admin_node = Session::get('admin_node') ? Session::get('admin_node') : Config::get('node');
-
+        
         foreach (static::$subcontrollers as $class) {
             if(in_array('Goteo\Controller\Admin\AdminControllerInterface', class_implements($class))) {
                 if($class::isAllowed($user)) return true;
@@ -338,16 +342,16 @@ class AdminController extends \Goteo\Core\Controller {
         }
         return false;
     }
-
+    
     ///////////////////////////////
     /// OLD code...
     /// ////////////////////////
-
+    
     public function indexOldAction(Request $request) {
         $ret = array();
         $user = self::checkCurrentUser($request);
         $this->contextVars(self::$context_vars, 'admin/');
-
+        
         //feed by default for someones
         $admin_node = Session::get('admin_node');
         if ($user->hasRoleInNode($admin_node, ['superadmin', 'root']) || ($user->hasRoleInNode($admin_node, ['admin']) && Config::isMasterNode($admin_node))) {
@@ -356,10 +360,10 @@ class AdminController extends \Goteo\Core\Controller {
         }
         //default admin dashboard (nothing!)
         return $this->viewResponse('admin/default', $ret);
-
+        
     }
-
-
+    
+    
     /**
      * Old Security method
      * Gets the current user
@@ -369,15 +373,15 @@ class AdminController extends \Goteo\Core\Controller {
      * @param Request    $request [description]
      */
     private static function checkCurrentUser(Request $request, $option = null, $action = null, $id = null) {
-
+        
         //refresh permission status
         User::flush();
         $user = Session::getUser();
-
+        
         if (!$user) {
             throw new ControllerAccessDeniedException(Text::get('user-login-required-access'));
         }
-
+        
         // all node names
         $all_nodes = Node::getList();
         // simple list of administrable nodes
@@ -387,26 +391,26 @@ class AdminController extends \Goteo\Core\Controller {
         }
         // all roles names
         $all_roles = User::getRolesList();
-
+        
         // get working node
         $admin_node = Session::exists('admin_node') ? Session::get('admin_node') : Config::get('node');
         if (!array_key_exists($admin_node, $admin_nodes)) {
             // back to first node
             $admin_node = key($admin_nodes);
         }
-
+        
         //if need to change the current node
         if ($request->query->has('admin_node') && array_key_exists($request->query->get('admin_node'), $admin_nodes)) {
             $admin_node = $request->query->get('admin_node');
         }
-
+        
         Session::store('admin_node', $admin_node);
-
+        
         // Build menu from subcontrollers for the current user/node
         // Build the navigation breadcrumb
         $menu = array();
         $breadcrumb = array(['Admin', '/admin']);
-
+        
         foreach (static::$subcontrollers as $class) {
             if ($class::isAllowed($user, $admin_node)) {
                 $menu[$class::getId()] = $class::getLabel();
@@ -423,7 +427,7 @@ class AdminController extends \Goteo\Core\Controller {
                 }
             }
         }
-
+        
         self::$context_vars = [
             'option' => $option,
             'admin_menu' => $menu,
@@ -433,7 +437,7 @@ class AdminController extends \Goteo\Core\Controller {
             'admin_nodes' => $admin_nodes,
             'breadcrumb' => $breadcrumb,
         ];
-
+        
         // If menu is not allowed, throw exception
         if (empty($menu) || ($option && !array_key_exists($option, $menu))) {
             $zone = $menu[$option] ? $menu[$option] : $option;
@@ -442,28 +446,28 @@ class AdminController extends \Goteo\Core\Controller {
             } else {
                 $msg = 'Access denied!';
             }
-
+            
             Message::error($msg);
             throw new ControllerAccessDeniedException($msg);
         }
-
+        
         return $user;
     }
-
+    
     // Old dispatcher for submodules
     // preparado para index unificado
     //
     public function optionAction($option, $action = 'list', $id = null, $subaction = null, Request $request) {
         View::setTheme('default');
-
+        
         $ret = array();
         $SubC = static::$subcontrollers[$option];
-
+        
         // 'Goteo\Controller\Admin\\' . \strtoCamelCase($option) . 'SubController';
-
+        
         try {
             $user = self::checkCurrentUser($request, $option, $action, $id);
-
+            
             if (!class_exists($SubC)) {
                 return $this->viewResponse('admin/denied', ['msg' => "Class [$SubC] not found for path [$option]"], Response::HTTP_BAD_REQUEST);
             }
@@ -474,7 +478,7 @@ class AdminController extends \Goteo\Core\Controller {
                 return $this->viewResponse('admin/denied', ['msg' => "Method [$method()] not found for class [$SubC]"], Response::HTTP_BAD_REQUEST);
             }
             $ret = $controller->$method($id, $subaction);
-
+            
         } catch (ControllerAccessDeniedException $e) {
             // Instead of the default denied page, redirect to login
             Message::error($e->getMessage());
@@ -487,15 +491,15 @@ class AdminController extends \Goteo\Core\Controller {
             }
             return $this->redirect('/login?return=' . urlencode($url));
         }
-
+        
         //Return the response if the subcontroller is a handy guy
         if ($ret instanceOf Response) {
             return $ret;
         }
-
+        
         // If the subcontroller just specifies a template to render let's do it
         $this->contextVars(self::$context_vars, 'admin/');
-
+        
         // Legacy view compatibility
         // They return a file to be rendered along with vars
         $old_path = $ret['old_view_path'];
@@ -507,14 +511,14 @@ class AdminController extends \Goteo\Core\Controller {
                 'content' => \Goteo\Core\View::get($old_path, $ret),
             ]);
         }
-
+        
         if ($ret['template']) {
             return $this->viewResponse($ret['template'], $ret + self::$context_vars);
         }
-
+        
         //default admin dashboard (nothing!)
         return $this->viewResponse('admin/default', $ret);
-
+        
     }
-
+    
 }

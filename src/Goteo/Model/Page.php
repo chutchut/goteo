@@ -14,6 +14,7 @@ use Goteo\Application\App;
 use Goteo\Application\Lang;
 use Goteo\Application\Config;
 use Goteo\Core\Exception;
+use Goteo\Util\Security\Output;
 
 /*
  * Clase para gestionar el contenido de las páginas institucionales
@@ -52,7 +53,8 @@ class Page extends Model{
         $page = $query->fetchObject(__CLASS__);
 
         if (!$page instanceof \Goteo\Model\Page) {
-            // Create mock page
+            // Create mock page, sanitise $id
+            $id = Output::encode($id);
             $page = new self(['id' => $id, 'name' => "Page [$id]", 'description' => "Missing page [$id]", "content" => "Please create the page [$id] with proper content!"]);
         }
 

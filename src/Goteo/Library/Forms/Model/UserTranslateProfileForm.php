@@ -47,7 +47,7 @@ class UserTranslateProfileForm extends AbstractFormProcessor implements FormProc
         $user = $this->getModel();
         $lang = $this->getOption('lang');
 
-        $data = array_intersect_key($form->getData(), $form->all());
+        $data = $this->getCleanData(array_intersect_key($form->getData(), $form->all()));
         $errors = [];
         if(!$user->setLang($lang, $data, $errors)) {
             throw new FormModelException(Text::get('form-sent-error', implode(',',$errors)));

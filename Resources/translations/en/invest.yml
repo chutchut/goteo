@@ -1,7 +1,7 @@
 ---
-bazar-spread-text: '%s - This Christmas, give open crowdfunding for the common good with @goteofunding #openbazaar'
+bazar-spread-text: '%s - This Christmas, give open crowdfunding for the common good with @TeslaStarterfunding #openbazaar'
 bazar-thanks: 'Thank you for visiting our bazaar, you can help us promote it.'
-faq-payment-method: '<a href="/faq/investors#q2" target="_blank">What payment systems does Goteo offer? Are they safe?</a>'
+faq-payment-method: '<a href="/faq/investors#q2" target="_blank">What payment systems does TeslaStarter offer? Are they safe?</a>'
 imperative-register: Register
 invest-address-address-field: Address
 invest-address-birthyear-field: 'Year of birth'
@@ -50,8 +50,8 @@ invest-make-sure-title: Confirm
 invest-method: 'Payment method'
 invest-method-title: 'Make your contribution'
 invest-modal-fiscal-title: 'Tax information'
-invest-modal-pool-description: 'The virtual wallet is Goteo’s credit system, which you can use to contribute projects on our platform whenever you want, with no need to give your credit card or PayPal data each time.'
-invest-modal-pool-title: 'About Goteo Virtual Wallet'
+invest-modal-pool-description: 'The virtual wallet is TeslaStarter’s credit system, which you can use to contribute projects on our platform whenever you want, with no need to give your credit card or PayPal data each time.'
+invest-modal-pool-title: 'About TeslaStarter Virtual Wallet'
 invest-more-info: 'More information'
 invest-next_step: 'Next step'
 invest-payment-email: 'Enter your PayPal user name'
@@ -59,7 +59,7 @@ invest-payment-fail: 'Something went wrong with the payment'
 invest-payment-success: 'The payment has been made correctly'
 invest-payment-method: 'Payment method'
 invest-payment_method-header: 'Choose a method of payment'
-invest-pool: 'I want my donation, in the event that the project doesn''t reach its goal, to remain in my Goteo Virtual Wallet.'
+invest-pool: 'I want my donation, in the event that the project doesn''t reach its goal, to remain in my TeslaStarter Virtual Wallet.'
 invest-pool-available: Available
 invest-pool-error: 'You do not have enough money in your virtual wallet'
 invest-pool-method: 'Virtual Wallet'

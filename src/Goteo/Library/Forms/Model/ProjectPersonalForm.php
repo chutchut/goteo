@@ -87,7 +87,7 @@ class ProjectPersonalForm extends AbstractFormProcessor implements FormProcessor
         if(!$form) $form = $this->getBuilder()->getForm();
         if(!$form->isValid() && !$force_save) throw new FormModelException(Text::get('form-has-errors'));
 
-        $data = $form->getData();
+        $data = $this->getCleanData($form->getData());
         $user = $this->getModel();
         $user->rebuildData($data, array_keys($form->all()));
 

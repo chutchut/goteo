@@ -40,7 +40,7 @@ class ProjectOverviewForm extends AbstractFormProcessor implements FormProcessor
             ]);
         }
         if($this->getFullValidation()) {
-            if(!in_array($field, ['media', 'spread'])) {
+            if(!in_array($field, ['media', 'spread', 'lang', 'motivation', 'scope', 'social_commitment_description'])) {
                 // all fields
                 $constraints[] = new Constraints\NotBlank();
             }
@@ -80,13 +80,13 @@ class ProjectOverviewForm extends AbstractFormProcessor implements FormProcessor
                 'pre_addon' => '<i class="fa fa-globe"></i>',
                 'attr' => ['help' => Text::get('tooltip-project-project_location')]
             ])
-            ->add('lang', 'choice', [
+            /* ->add('lang', 'choice', [
                 'label' => 'overview-field-lang',
                 'constraints' => $this->getConstraints('lang'),
                 'disabled' => $this->getReadonly(),
                 'choices' => $langs,
                 'attr' => ['help' => Text::get('tooltip-project-lang')]
-            ])
+            ]) */
             ->add('currency', 'choice', [
                 'label' => 'overview-field-currency',
                 'constraints' => $this->getConstraints('currency'),
@@ -116,14 +116,14 @@ class ProjectOverviewForm extends AbstractFormProcessor implements FormProcessor
                 // 'row_class' => 'extra',
                 'attr' => ['help' => Text::get('tooltip-project-about'), 'rows' => 8]
             ])
-            ->add('motivation', 'markdown', [
+            /* ->add('motivation', 'markdown', [
                 'label' => 'overview-field-motivation',
                 'constraints' => $this->getConstraints('motivation'),
                 'disabled' => $this->getReadonly(),
                 'required' => false,
                 // 'row_class' => 'extra',
                 'attr' => ['help' => Text::get('tooltip-project-motivation'), 'rows' => 8]
-            ])
+            ]) */
             ->add('related', 'markdown', [
                 'label' => 'overview-field-related',
                 'constraints' => $this->getConstraints('related'),
@@ -157,7 +157,7 @@ class ProjectOverviewForm extends AbstractFormProcessor implements FormProcessor
                 ]);
         }
         $builder
-            ->add('scope', 'choice', [
+            /* ->add('scope', 'choice', [
                 'label' => 'overview-field-scope',
                 'disabled' => $this->getReadonly(),
                 'constraints' => $this->getConstraints('choice'),
@@ -166,7 +166,7 @@ class ProjectOverviewForm extends AbstractFormProcessor implements FormProcessor
                 'choices' => Project::scope(),
                 'expanded' => true,
                 'attr' => ['help' => Text::get('tooltip-project-scope')]
-            ])
+            ]) */
             ->add('social_commitment', 'choice', [
                 'label' => 'overview-field-social-category',
                 'disabled' => $this->getReadonly(),
@@ -179,13 +179,13 @@ class ProjectOverviewForm extends AbstractFormProcessor implements FormProcessor
                 'expanded' => true,
                 'attr' => ['help' => Text::get('tooltip-project-social-category')]
             ])
-            ->add('social_commitment_description', 'textarea', [
+            /* ->add('social_commitment_description', 'textarea', [
                 'disabled' => $this->getReadonly(),
                 'label' => 'overview-field-social-description',
                 'constraints' => $this->getConstraints('social_commitment_description'),
                 'required' => false,
                 'attr' => ['help' => Text::get('tooltip-project-social-description'), 'rows' => 8]
-            ])
+            ]) */
             ;
         return $this;
     }

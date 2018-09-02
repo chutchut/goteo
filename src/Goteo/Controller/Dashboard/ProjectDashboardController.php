@@ -328,14 +328,16 @@ class ProjectDashboardController extends DashboardController {
 
         $zones = ProjectImage::sections();
         $images = [];
+        $myZones = [];
         foreach ($zones as $sec => $secName) {
-            if($sec === 'goal') continue;
+            if($sec === 'goal' || $sec === 'motivation') continue;
             $images[$sec] = ProjectImage::get($project->id, $sec);
+            $myZones[$sec] = $secName;
         }
 
         $editable = $this->admin || $project->inEdition() || $project->isAlive();
         return $this->viewResponse('dashboard/project/images' . ($editable ? '' : '_idle'), [
-            'zones' => $zones,
+            'zones' => $myZones,
             'images' => $images,
             'next' => $approved || !$editable ? '' : $this->getEditRedirect('images', $request)
             ]);

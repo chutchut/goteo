@@ -2407,9 +2407,9 @@ namespace Goteo\Model {
 
 
             // 3. overview
-            $overview = ['name', 'subtitle', 'lang', 'currency',
+            $overview = ['name', 'subtitle', 'currency',
             // 'media',
-             'description', 'project_location', 'related', 'about', 'motivation', 'scope', 'social_commitment', 'social_commitment_description'];
+             'description', 'project_location', 'related', 'about', 'social_commitment'];
 
             $total = count($overview);
             $count = 0;
@@ -2506,17 +2506,21 @@ namespace Goteo\Model {
             } else {
                 $res->rewards = 100;
             }
+            
+            /* Make rewards optional
             if($total < 3) {
                 $errors['rewards'][] = 'rewards_required';
                 $res->rewards *= $total / 3;
             }
+            */
 
             $campaign = [ ];
 
             // 6. campaign
-            $campaign = [ 'phone' ];
+            //$campaign = [ 'phone' ];
             $count = 0;
-            $total = count($campaign);
+            //$total = count($campaign);
+            $total = 1;
             foreach($campaign as $field) {
                 if(!empty($this->{$field})) {
                     continue;

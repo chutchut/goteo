@@ -20,6 +20,7 @@
 
         echo $this->form_row($form['one_round']);
 
+        /*
         echo $this->form_row($form['phone']);
 
         echo '<div class="form-group spacer-10">
@@ -33,6 +34,7 @@
         echo '<div class="paypal' . ($form['paypal']->vars['value'] ? ' show' : '') . '">';
             echo $this->form_row($form['paypal']);
         echo '</div>';
+        */
 
         echo $this->form_end($form);
 

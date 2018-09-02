@@ -54,20 +54,20 @@ class ProjectCampaignForm extends AbstractFormProcessor implements FormProcessor
                 ],
                 'attr' => ['help' => '<span class="' . ($project->one_round ? '': 'hidden') . '">' . Text::get('tooltip-project-rounds') . '</span><span class="' . ($project->one_round ? 'hidden': '') . '">' . Text::get('tooltip-project-2rounds') . '</span>']
             ])
-            ->add('phone', 'text', [
+            /* ->add('phone', 'text', [
                 'label' => 'personal-field-phone',
                 'disabled' => $this->getReadonly(),
                 'constraints' => $this->getConstraints('phone'),
                 'required' => false,
                 'attr' => ['help' => Text::get('tooltip-project-phone')]
-            ])
-            ->add('paypal', 'email', [
+            ]) */
+            /* ->add('paypal', 'email', [
                 'label' => 'contract-paypal_account',
                 'constraints' => $this->getConstraints('paypal'),
                 'disabled' => $this->getReadonly(),
                 'required' => false,
                 'attr' => ['help' => Text::get('tooltip-project-paypal')]
-            ])
+            ]) */
             ->add('spread', 'textarea', [
                 'label' => 'overview-field-spread',
                 'disabled' => $this->getReadonly(),
@@ -84,7 +84,7 @@ class ProjectCampaignForm extends AbstractFormProcessor implements FormProcessor
         if(!$form) $form = $this->getBuilder()->getForm();
         if(!$form->isValid() && !$force_save) throw new FormModelException(Text::get('form-has-errors'));
 
-        $data = $form->getData();
+        $data = $this->getCleanData($form->getData());
         $project = $this->getModel();
         $project->rebuildData($data, array_keys($form->all()));
 
@@ -95,14 +95,16 @@ class ProjectCampaignForm extends AbstractFormProcessor implements FormProcessor
 
         $data = $form->getData();
         $account = $this->getOption('account');
-        $account->rebuildData(['paypal' => $data['paypal']]);
+        if (isset($data['paypal'])) {
+            $account->rebuildData(['paypal' => $data['paypal']]);
+        }
 
         $errors = [];
         if (!$account->save($errors)) {
             throw new FormModelException(Text::get('form-sent-error', implode(', ',$errors)));
         }
         $user = $this->getOption('user');
-        if(!User::setPersonal($user, ['phone' => $data['phone']], true, $errors)) {
+        if(isset($data['phone']) && !User::setPersonal($user, ['phone' => $data['phone']], true, $errors)) {
             throw new FormModelException(Text::get('form-sent-error', implode(', ',$errors)));
         }
 

@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraints;
 use Goteo\Core\Model;
 use Goteo\Library\Text;
+use Goteo\Util\Security\Input;
 
 
 abstract class AbstractFormProcessor implements FormProcessorInterface {
@@ -113,12 +114,20 @@ abstract class AbstractFormProcessor implements FormProcessorInterface {
     public function getOption($key) {
         return $this->options[$key];
     }
+    
+    public function getCleanData(array $rawData) {
+        $cleanData = array();
+        foreach ($rawData as $key => $val) {
+            $cleanData[$key] = Input::stripTags($val);
+        }
+        return $cleanData;
+    }
 
     public function save(FormInterface $form = null, $force_save = false) {
         if(!$form) $form = $this->getBuilder()->getForm();
         if(!$form->isValid() && !$force_save) throw new FormModelException(Text::get('form-has-errors'));
 
-        $data = $form->getData();
+        $data = $this->getCleanData($form->getData());
         $model = $this->getModel();
         $model->rebuildData($data, array_keys($form->all()));
 

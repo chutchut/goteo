@@ -139,7 +139,7 @@ class ProjectCostsForm extends AbstractFormProcessor implements FormProcessorInt
     public function save(FormInterface $form = null, $force_save = false) {
         if(!$form) $form = $this->getBuilder()->getForm();
 
-        $data = array_intersect_key($form->getData(), $form->all());
+        $data = $this->getCleanData(array_intersect_key($form->getData(), $form->all()));
         // print_r($data);die;
         $project = $this->getModel();
         // $project->one_round = (bool) $data['one_round'];
