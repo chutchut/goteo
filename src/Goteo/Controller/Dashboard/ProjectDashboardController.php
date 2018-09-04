@@ -97,7 +97,7 @@ class ProjectDashboardController extends DashboardController {
 
 
          $submenu = [
-            ['text' => '<i class="fa fa-2x fa-globe"></i> ' . Text::get('regular-translations'), 'link' => $prefix . '/translate', 'id' => 'translate'],
+            // ['text' => '<i class="fa fa-2x fa-globe"></i> ' . Text::get('regular-translations'), 'link' => $prefix . '/translate', 'id' => 'translate'],
             ['text' => '<i class="icon icon-2x icon-analytics"></i> ' . Text::get('dashboard-menu-projects-analytics'), 'link' => $prefix . '/analytics', 'id' => 'analytics'],
             ['text' => '<i class="icon icon-2x icon-shared"></i> ' . Text::get('project-share-materials'), 'link' => $prefix . '/materials', 'id' => 'materials']
         ];
