@@ -1,6 +1,6 @@
 ---
 api-key-no-generated: 'No API key generated yet'
-api-key-tool-tip: 'With your TeslaStarter user and API key you''re able to query any data trough our API'
+api-key-tool-tip: 'With your TeslaStarter user and API key you''re able to query any data through our API'
 api-key-documentation: 'View API documentation'
 api-key-user: 'User'
 api-key-key: 'Key'
@@ -82,6 +82,7 @@ dashboard-messegers-mail-sendto: 'Sent to %s the participants:'
 dashboard-my-wallet-available: 'You currently have <span class="pool-amount">%s</span> <span class="pool-desc">in your virtual wallet in TeslaStarter</span>'
 dashboard-my-wallet-contribute-button: Donate
 dashboard-my-wallet-pool-info: 'More information on using your wallet'
+dashboard-my-wallet-modal-pool-info: "<p>The wallet is a functionality of our platform that allows you to make your donation and decide later on which project to provide it.</p><p>The donations you make through our platform are tax-deductible, according to Law 49/2002, of December 23, on the tax regime of non-profit entities and tax incentives for patronage.</p<p>When you make your donation, you can download a donation certificate that justifies to the Treasury your contribution to a non-profit organization. You can access a history of the available certificates associated with your donations in Goteo in your user panel, specifically in the Donation Certificate section.</p><p><strong>IMPORTANT NOTE</strong>: We remind you that all the contributions for which you have obtained a donation certificate from our Foundation are not returned. This means that if you have made a donation linked to a specific project within our platform and it does not reach its minimum funding goal during your campaign, your contribution will go to your wallet but will not return to your checking account. However you can allocate that amount from your virtual wallet in Teslastarter.org to any other active project you want at the time you choose, without having to re-enter your bank or PayPal data.</p>"
 dashboard-password-recover-advice: 'You are recovering your password. Remember to put your user name in the "current password" field to change it.'
 dashboard-project-analytics-fail: 'Error while saving analytics IDs'
 dashboard-project-analytics-ok: 'Your analytics IDs have been saved correctly'
