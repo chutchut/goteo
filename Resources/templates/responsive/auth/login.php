@@ -18,7 +18,7 @@ $this->section('inner-content');
 
     <?= $this->insert('auth/partials/form_login') ?>
 
-    <?= $this->insert('auth/partials/social_login') ?>
+    <!-- <?= $this->insert('auth/partials/social_login') ?> -->
 
     </form>
 
@@ -29,7 +29,7 @@ $this->section('inner-content');
 <?php $this->section('content') ?>
     <?= $this->insert('auth/partials/recover_modal') ?>
 
-    <?= $this->insert('auth/partials/openid_modal') ?>
+    <!-- <?= $this->insert('auth/partials/openid_modal') ?> -->
 <?php $this->append() ?>
 
 

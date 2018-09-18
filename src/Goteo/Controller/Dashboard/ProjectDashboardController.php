@@ -188,14 +188,30 @@ class ProjectDashboardController extends DashboardController {
     }
 
     public function summaryAction($pid = null, Request $request) {
-        $project = $this->validateProject($pid, 'summary');
+        try {
+            $project = $this->validateProject($pid, 'summary');
+        } catch (ModelNotFoundException $e) {
+            // This is stupid.. get the last project created by the user
+            $projects = Project::ofmine($this->user->id, false, 0, 1);
+            if (sizeof($projects) == 1) {
+                $project = $projects[0];
+            } else{
+                return $this->indexAction($request);
+            }
+        } catch (\Exception $e) {
+            //TODO: Log this somewhere? 
+            // Do not attempt to go to the summary page as there is no project object.. :(
+            return $this->indexAction($request);
+        }
+        
         if($project instanceOf Response) return $project;
 
         return $this->viewResponse('dashboard/project/summary', [
             'statuses' => Project::status(),
             'status_text' => $status_text,
             'status_class' => $status_class,
-            'desc' => $desc
+            'desc' => $desc,
+            'project' => $project
         ]);
     }
 
@@ -512,7 +528,7 @@ class ProjectDashboardController extends DashboardController {
                         $cost = Cost::get(substr($button, 7));
                         $cost->dbDelete();
                         return $this->rawResponse('deleted ' . $cost->id);
-                    } catch(\PDOExpection $e) {
+                    } catch(\PDOException $e) {
                         return $this->rawResponse(Text::get('form-sent-error', 'Cost not deleted'), 'text/plain', 403);
                     }
                 }
@@ -596,7 +612,7 @@ class ProjectDashboardController extends DashboardController {
                             return $this->rawResponse('Error: Reward has invests or cannot be deleted', 'text/plain', 403);
                         }
                         return $this->rawResponse('deleted ' . $reward->id);
-                    } catch(\PDOExpection $e) {
+                    } catch(\PDOException $e) {
                         return $this->rawResponse(Text::get('form-sent-error', 'Reward not deleted'), 'text/plain', 403);
                     }
                 }

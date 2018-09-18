@@ -9,4 +9,9 @@ preview-send-comment: 'Additional notes for the administrator'
 step-7: Preview
 step-preview: 'Project / Preview'
 tooltip-project-comment: 'Do you have any doubts or comments for the TeslaStarter administrator? This is the place to mention some part of what you have written that you''re not sure about, to suggest improvements, etc.'
-
+project-send-review-desc: >
+  Once you send it, you will not be able to introduce changes until we open your project again.
+  
+  Shortly we will contact you to discuss the campaign proposal and to continue with its optimization and publication process.
+  
+  **Do not forget to check your SPAM folder**, sometimes technology is not able to appreciate the love we give to our projects.

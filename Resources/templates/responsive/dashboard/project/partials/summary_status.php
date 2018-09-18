@@ -37,13 +37,13 @@ if (!$project->isApproved()){
 <?php endif ?>
 <?php if ($desc): ?>
     <blockquote><?= $desc ?></blockquote>
-    <?php if($project->inReview()): ?>
+    <!-- <?php if($project->inReview()): ?>
         <blockquote>
-            <p><?= $this->text('dashboard-project-add-translations') ?></p>
+            <p><?= $this->text('dashboard-project-add-translations') ?></p> 
 
             <p><a href="/dashboard/project/<?= $project->id ?>/translate"><i class="fa fa-hand-o-right"></i> <?= $this->text('form-navigation_bar-header') ?> <?= $this->text('regular-translations') ?></a></p>
         </blockquote>
-    <?php endif ?>
+    <?php endif ?> -->
 
 <?php endif ?>
 
