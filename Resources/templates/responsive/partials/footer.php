@@ -22,11 +22,8 @@
         </div>
         <div class="social text-center">
           <a class="fa fa-twitter" title="" target="_blank" href="<?=$this->text('social-account-twitter') ?>"></a>
-          <a class="fa fa-facebook" title="" target="_blank" href="<?=$this->text('social-account-facebook') ?>"></a>
-          <a class="fa fa-instagram" title="" target="_blank" href="<?=$this->text('social-account-instagram') ?>"></a>
           <a class="fa fa-telegram" title="" target="_blank" href="<?=$this->text('social-account-telegram') ?>"></a>
           <a class="fa fa-github" title="" target="_blank" href="<?=$this->text('social-account-github') ?>"></a>
-          <a class="fa fa-newspaper-o" title="" target="_blank" href="/newsletter"></a>
         </div>
       </div>
     </div>
