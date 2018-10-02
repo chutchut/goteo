@@ -15,7 +15,7 @@ $worth = $vars['worth'];
 </p>
 
 <p>
-    <label for="worth-amount">Caudal:</label><br />
+    <label for="worth-amount">TeslaPoints:</label><br />
     <input id="worth-amount" name="amount" value="<?php echo $worth->amount ?>" />
 </p>
 
