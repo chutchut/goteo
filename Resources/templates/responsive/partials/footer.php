@@ -16,7 +16,7 @@
             <div class="col-sm-4 hidden-xs">
               <ul class="list-inline text-right">
                 <li class="label-img"><a href="#"><?=$this->text('footer-platoniq-iniciative') ?></a></li>
-                <li><a href="/blog"><img src="/view/css/logoFG.png" class="img-responsive logo" alt="Fundación Goteo"></a></li>
+                <li> TeslaStarter v0.1 </li>
               </ul>
             </div>
         </div>
