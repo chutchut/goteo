@@ -49,7 +49,7 @@ class SettingsDashboardController extends DashboardController {
         Session::addToSidebarMenu( '<i class="fa fa-2x fa-fw fa-user-secret"></i> ' . Text::get('dashboard-menu-profile-access'), '/dashboard/settings/access', 'access');
         Session::addToSidebarMenu( '<i class="fa fa-2x fa-fw fa-toggle-on"></i> ' . Text::get('dashboard-menu-profile-preferences'), '/dashboard/settings/preferences', 'preferences');
         Session::addToSidebarMenu( '<i class="fa fa-2x fa-fw fa-key"></i> ' . Text::get('dashboard-menu-activity-apikey'), '/dashboard/settings/apikey', 'apikey');
-        Session::addToSidebarMenu( '<i class="fa fa-2x fa-fw fa-vcard"></i> ' . Text::get('dashboard-menu-profile-public'), '/user/profile/' . $this->user->id, 'public');
+        //Session::addToSidebarMenu( '<i class="fa fa-2x fa-fw fa-vcard"></i> ' . Text::get('dashboard-menu-profile-public'), '/user/profile/' . $this->user->id, 'public');
 
 
         View::getEngine()->useData([

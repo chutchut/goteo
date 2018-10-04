@@ -196,6 +196,13 @@ namespace {
 
         return number_format($amount, $decs, ',', '.');
     }
+    
+    function tes_format($amount, $decs = 0) {
+        $fmt = amount_format($amount, $decs);
+        // Split by space and swap
+        $fmtSplit = explode(' ', $fmt);
+        return $fmtSplit[1] .' '. $fmtSplit[0];
+    }
 
     /*
      * Asegura una url si está en entorno seguro

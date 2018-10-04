@@ -21,7 +21,7 @@ use Goteo\Library\Converter;
 
 class Currency {
 
-    protected static $default_currency = 'EUR';
+    protected static $default_currency = 'TES';
     protected static $converter;
 
     static public $currencies = array(
@@ -35,6 +35,17 @@ class Currency {
             'thou' => '.', // Legacy var
             'decimal'  => ',',
             'dec'  => ',', // legacy var
+            'active' => false
+        ),
+        'TES' => array(
+            'id' => 'TES',
+            'name' => 'Teslacoin',
+            'symbol' => 'TES',
+            'html' => 'TES', // legacy var
+            'thousands' => ',',
+            'thou' => ',', // Legacy var
+            'decimal'  => '.',
+            'dec'  => '.', // legacy var
             'active' => true
         )
 

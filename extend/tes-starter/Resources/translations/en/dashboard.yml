@@ -79,7 +79,7 @@ dashboard-menu-review_board: Review
 dashboard-menu-translate_board: Translation
 dashboard-menu-translates: 'My translations'
 dashboard-messegers-mail-sendto: 'Sent to %s the participants:'
-dashboard-my-wallet-available: 'You currently have <span class="pool-amount">%s</span> <span class="pool-desc">in your virtual wallet in TeslaStarter</span>'
+dashboard-my-wallet-available: 'You currently have <span class="pool-amount">%s</span>'
 dashboard-my-wallet-contribute-button: Donate
 dashboard-my-wallet-pool-info: 'More information on using your wallet'
 dashboard-password-recover-advice: 'You are recovering your password. Remember to put your user name in the "current password" field to change it.'
