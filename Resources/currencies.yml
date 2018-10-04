@@ -1,22 +1,29 @@
 # Default currencies used in Goteo
 # Plugins can extend that using the class Currency::addCurrency()
+TES:
+    name: 'Teslacoin'
+    symbol: 'TES'
+    thousands: ','
+    decimal: '.'
+    active: true
+
 EUR:
     name: 'Euro'
     symbol: '€'
-    thousands: .
+    thousands: '.'
     decimal: ','
-    active: true
+    active: false
 
 USD:
     name: 'U.S. Dollar'
     symbol: '$'
     thousands: ','
     decimal: '.'
-    active: true
+    active: false
 
 GBP:
     name: 'British Pound'
     symbol: '£'
     thousands: ','
-    decimal: .
-    active: true
+    decimal: '.'
+    active: false

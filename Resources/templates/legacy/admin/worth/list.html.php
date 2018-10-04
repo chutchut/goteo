@@ -10,7 +10,7 @@ use Goteo\Library\Text;
             <tr>
                 <th><!-- Editar--></th>
                 <th>Nivel</th>
-                <th>Caudal</th>
+                <th>TeslaPoints</th>
                 <th></th>
             </tr>
         </thead>
@@ -20,7 +20,7 @@ use Goteo\Library\Text;
             <tr>
                 <td width="5%"><a href="/admin/worth/edit/<?php echo $worth->id; ?>">[Editar]</a></td>
                 <td width="15%"><?php echo $worth->name; ?></td>
-                <td width="15%"><?php echo $worth->amount; ?> &euro;</td>
+                <td width="15%"><?php echo $worth->amount; ?> TeslaPoints</td>
                 <td></td>
             </tr>
             <?php endforeach; ?>
