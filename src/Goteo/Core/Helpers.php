@@ -185,8 +185,7 @@ namespace {
      * Numberformat para convertir importes
      */
     function amount_format($amount, $decs = 0, $nosymbol = false, $revert = false, $format = true) {
-
-        return \Goteo\Application\Currency::amountFormat($amount, $decs, $nosymbol, $revert, $format);
+        return tes_format($amount, $decs, $nosymbol, $revert, $format);
     }
 
     /**
@@ -197,8 +196,8 @@ namespace {
         return number_format($amount, $decs, ',', '.');
     }
     
-    function tes_format($amount, $decs = 0) {
-        $fmt = amount_format($amount, $decs);
+    function tes_format($amount, $decs = 0, $nosymbol = false, $revert = false, $format = true) {
+        $fmt = \Goteo\Application\Currency::amountFormat($amount, $decs, $nosymbol, $revert, $format);
         // Split by space and swap
         $fmtSplit = explode(' ', $fmt);
         return $fmtSplit[1] .' '. $fmtSplit[0];
