@@ -219,8 +219,10 @@ class SettingsDashboardController extends DashboardController {
         }
 
         // Create the form
-        $builder = $this->createFormBuilder($defaults)
-            ->add('comlang', 'choice', [
+        $builder = $this->createFormBuilder($defaults);
+        
+        /* Remove language and currency options
+        $builder->add('comlang', 'choice', [
                 'label' => 'user-preferences-comlang',
                 'choices' => Lang::listAll()
             ]);
@@ -232,7 +234,7 @@ class SettingsDashboardController extends DashboardController {
                 'choices' => $currencies
             ]);
         }
-
+        */
 
         foreach($bools as $b) {
             $builder

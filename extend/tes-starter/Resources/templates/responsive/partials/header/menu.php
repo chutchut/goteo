@@ -5,7 +5,7 @@
 
 <ul class="nav">
   <?php foreach($this->raw('menu') as $link => $item): ?>
-  	<?php if (in_array($item['id'], array('langs', 'channels', 'currencies'))) { continue; }; // Hide language, channels, currency menu items ?>
+  	<?php if (in_array($item['id'], array('langs', 'channels', 'currencies', 'about'))) { continue; }; // Hide language, channels, currency, about menu items ?>
     <?= $this->insert('partials/header/menu_item', ['link' => $link, 'item' => $item]) ?>
   <?php endforeach ?>
 </ul>
