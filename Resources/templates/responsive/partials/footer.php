@@ -16,7 +16,7 @@
             <div class="col-sm-4 hidden-xs">
               <ul class="list-inline text-right">
                 <li class="label-img"><a href="#"><?=$this->text('footer-platoniq-iniciative') ?></a></li>
-                <li> TeslaStarter v0.1 </li>
+                <li style="color:white;">> TeslaStarter v0.1 </li>
               </ul>
             </div>
         </div>
