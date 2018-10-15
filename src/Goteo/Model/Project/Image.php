@@ -13,6 +13,7 @@ namespace Goteo\Model\Project {
     use Goteo\Library\Check,
         Goteo\Library\Text,
         Goteo\Model;
+    use Goteo\Application\Config;
 
     class Image extends \Goteo\Core\Model {
 
@@ -216,7 +217,23 @@ namespace Goteo\Model\Project {
         // Helpers
         public function getLink() {
             $args = func_get_args();
-            return call_user_func_array(array($this->imageData, 'getLink'), $args);
+            $link = call_user_func_array(array($this->imageData, 'getLink'), $args);
+            if (Config::get('ssl') && strpos($link, 'https://' === false)) {
+                // Absolute
+                if (strpos($link, 'http://' === true)) {
+                    $link = str_replace('http://', 'https://', $link);
+                } elseif (preg_match("#^/?\w+(.*)$#i", $link)) {
+                    // Relative
+                    if (strpos($link, '/') == 0) {
+                        // Already one slash, add one
+                        $link = '/' . $link;
+                    } else {
+                        // Add both
+                        $link = '//' . $link;
+                    }
+                }
+            }
+            return $link;
         }
         public function getName() {
             return $this->imageData->name;
