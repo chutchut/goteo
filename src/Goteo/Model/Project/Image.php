@@ -218,7 +218,7 @@ namespace Goteo\Model\Project {
         public function getLink() {
             $args = func_get_args();
             $link = call_user_func_array(array($this->imageData, 'getLink'), $args);
-            if (Config::get('ssl') && strpos($link, 'https://' === false)) {
+            if (Config::get('ssl') && strpos($link, 'https://') === false) {
                 // Absolute
                 if (strpos($link, 'http://' === true)) {
                     $link = str_replace('http://', 'https://', $link);
