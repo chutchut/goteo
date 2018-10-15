@@ -221,7 +221,7 @@ namespace Goteo\Model\Project {
                    $link = str_replace('http://', 'https://', $link);
                } elseif (preg_match("#^/?\w+(.*)$#i", $link)) {
                    // Relative
-                   if (strpos($link, '/') == 0) {
+                   if (strpos($link, '/') === 0) {
                        // Already one slash, add one
                        $link = '/' . $link;
                    } else {
