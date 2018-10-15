@@ -19,10 +19,10 @@
 
 							<?php else: ?>
 
-								<img src="<?= $banner_image->getLink(1920, 600, true) ?>" class="display-none-important img-responsive  hidden-xs visible-up-1400">
-			                    <img src="<?= $banner_image->getLink(1400, 500, true) ?>" class="display-none-important img-responsive  hidden-xs visible-1051-1400">
-				                <img src="<?= $banner_image->getLink(1051, 460, true) ?>" class="display-none-important img-responsive  hidden-xs visible-768-1050">
-			                    <img src="<?= $banner_image->getLink(750, 600, true) ?>" class="img-responsive visible-xs">
+								<img src="<?= \Goteo\Model\Project\Image::fixLink($banner_image->getLink(1920, 600, true)) ?>" class="display-none-important img-responsive  hidden-xs visible-up-1400">
+			                    <img src="<?= \Goteo\Model\Project\Image::fixLink($banner_image->getLink(1400, 500, true)) ?>" class="display-none-important img-responsive  hidden-xs visible-1051-1400">
+				                <img src="<?= \Goteo\Model\Project\Image::fixLink($banner_image->getLink(1051, 460, true)) ?>" class="display-none-important img-responsive  hidden-xs visible-768-1050">
+			                    <img src="<?= \Goteo\Model\Project\Image::fixLink($banner_image->getLink(750, 600, true)) ?>" class="img-responsive visible-xs">
 
 							<?php endif; ?>
 

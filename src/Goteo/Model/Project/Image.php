@@ -213,26 +213,31 @@ namespace Goteo\Model\Project {
                 // 'reward' => Text::get('overview-field-reward')
             );
        }
+       
+       public static function fixLink($link) {
+           if (Config::get('ssl') && strpos($link, 'https://') === false) {
+               // Absolute
+               if (strpos($link, 'http://' === true)) {
+                   $link = str_replace('http://', 'https://', $link);
+               } elseif (preg_match("#^/?\w+(.*)$#i", $link)) {
+                   // Relative
+                   if (strpos($link, '/') == 0) {
+                       // Already one slash, add one
+                       $link = '/' . $link;
+                   } else {
+                       // Add both
+                       $link = '//' . $link;
+                   }
+               }
+           }
+           return $link;
+       }
 
         // Helpers
         public function getLink() {
             $args = func_get_args();
             $link = call_user_func_array(array($this->imageData, 'getLink'), $args);
-            if (Config::get('ssl') && strpos($link, 'https://') === false) {
-                // Absolute
-                if (strpos($link, 'http://' === true)) {
-                    $link = str_replace('http://', 'https://', $link);
-                } elseif (preg_match("#^/?\w+(.*)$#i", $link)) {
-                    // Relative
-                    if (strpos($link, '/') == 0) {
-                        // Already one slash, add one
-                        $link = '/' . $link;
-                    } else {
-                        // Add both
-                        $link = '//' . $link;
-                    }
-                }
-            }
+            $link = self::fixLink($link);
             return $link;
         }
         public function getName() {
