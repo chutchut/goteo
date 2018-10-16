@@ -10,7 +10,7 @@ $url_project_create = $this->url_project_create ? $this->url_project_create : '/
         <h2><?= $this->text('regular-menu') ?></h2>
 
         <ul>
-            <li class="home"><a class="node-jump" href="<?= $this->get_config('url.main') ?>"><?= $this->text('regular-home') ?></a></li>
+        <!--     <li class="home"><a class="node-jump" href="<?= $this->get_config('url.main') ?>"><?= $this->text('regular-home') ?></a></li> -->
             <li class="explore"><a class="button red" href="/discover"><?= $this->text('regular-discover') ?></a></li>
             <li class="create"><a class="button aqua" href="<?= $url_project_create ?>"><?= $this->text('regular-create') ?></a></li>
             <li class="search">
@@ -22,21 +22,7 @@ $url_project_create = $this->url_project_create ? $this->url_project_create : '/
                     </fieldset>
                 </form>
             </li>
-            <li class="community"><a href="/community"><span><?= $this->text('community-menu-main') ?></span></a>
-                <div>
-                    <ul>
-                        <li><a href="/community"><span><?= $this->text('community-menu-activity') ?></span></a></li>
-<?php /* quitamos Compartiendo por ahora
-                        <li><a href="/community/sharemates"><span><?= $this->text('community-menu-sharemates') ?></span></a></li>
- */ ?>
-                        <!-- nodos activos -->
-                        <?php  foreach ($nodes as $node) : ?>
-                        <li><a class="node-jump" href="<?php echo $node->url ?>"><?php echo $node->name ?></a></li>
-                        <?php  endforeach; ?>
-                    </ul>
-                </div>
-            </li>
-
+        
             <?php if ($this->is_logged()): ?>
             <li class="dashboard"><a href="/dashboard"><span><?= $this->text('dashboard-menu-main') ?></span><img src="<?php echo $this->get_user()->avatar->getLink(28, 28, true); ?>" /></a>
                 <div>
