@@ -215,6 +215,7 @@ namespace Goteo\Model\Project {
        }
        
        public static function fixLink($link) {
+           $link = trim($link);
            if (Config::get('ssl') && strpos($link, 'https://') === false) {
                // Absolute
                if (strpos($link, 'http://') !== false) {
