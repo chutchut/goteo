@@ -238,7 +238,6 @@ namespace Goteo\Model\Project {
         public function getLink() {
             $args = func_get_args();
             $link = call_user_func_array(array($this->imageData, 'getLink'), $args);
-            $link = self::fixLink($link);
             return $link;
         }
         public function getName() {

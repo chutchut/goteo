@@ -362,7 +362,7 @@ class Image extends \Goteo\Core\Model {
             $link = (Config::get('ssl') ? 'https:' : 'http:').$link;
         }
 
-        return $link;
+        return \Goteo\Model\Project\Image::fixLink($link);
     }
 
     /**
