@@ -65,7 +65,7 @@ include __DIR__ . '/../header.html.php';
 ?>
 	<div id="sub-header-secondary">
 		<div class="clearfix">
-			<h2><a href="/blog">GOTEO<span class="red">BLOG</span></a></h2>
+			<h2><a href="/blog">TeslaStarter <span class="red">BLOG</span></a></h2>
             <?php echo View::get('header/share.html.php') ?>
 		</div>
 	</div>
