@@ -89,7 +89,7 @@ class Mail extends \Goteo\Core\Model {
                         ]);
         }
         // Define  el idioma para los mensajes de error.
-        $mail->setLanguage("es");
+        $mail->setLanguage("en");
 
         // Define la codificación de caracteres del mensaje.
         $mail->CharSet = "UTF-8";
