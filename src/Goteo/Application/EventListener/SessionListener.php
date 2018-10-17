@@ -84,7 +84,11 @@ class SessionListener extends AbstractListener {
 
 
         // Set lang
-        $lang = Lang::setFromGlobals($request);
+        //$lang = Lang::setFromGlobals($request);
+        
+        // Force lang to english
+        $lang = Lang::getDefault();
+        
         // Cookie
         // the stupid cookie EU law
         if (!Cookie::exists('goteo_cookies')) {
