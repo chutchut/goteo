@@ -18,18 +18,17 @@ use Psr\Log\LoggerInterface;
  * Trait to add log common methods
  */
 trait LoggerTrait {
-    protected $logger;
 
     public function setLog(LoggerInterface $logger = null) {
-        $this->logger = $logger;
+        //$this->myLogger = $logger; NOP
         return $this;
     }
 
     public function getLog() {
-        if(!$this->logger) {
-            $this->logger = App::getService('logger');
-        }
-        return $this->logger;
+        //if(!$this->myLogger) {
+        //    $this->myLogger = App::getService('logger');
+        //}
+        return App::getService('logger');
     }
 
     public function log($message, array $context = [], $func = 'info') {
